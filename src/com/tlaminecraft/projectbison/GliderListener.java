@@ -1,10 +1,14 @@
 package com.tlaminecraft.projectbison;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
@@ -13,12 +17,21 @@ public class GliderListener implements Listener {
 	public void GliderAscend(PlayerInteractEvent event) {
 		if (event.getMaterial().equals(Material.WOOD_SWORD)) {
 			Player player = event.getPlayer();
+			Vector velocity = player.getVelocity();
 			if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-				player.setVelocity(player.getVelocity().add(new Vector(0, 5, 0)));
+				player.setVelocity(velocity.add(new Vector(0, 3, 0)));
 			}
 			else if (event.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-				player.setVelocity(player.getVelocity().add(new Vector(0, 0.1, 0)));
+				player.setVelocity(velocity.add(new Vector(velocity.getX() * 100, 2, velocity.getZ() * 100)));
 			}
+		}
+	}
+	
+	@EventHandler
+	public void FallDamage(EntityDamageEvent event) {
+		Entity entity = event.getEntity();
+		if (event.getCause().equals(DamageCause.FALL) && entity.getType().equals(EntityType.PLAYER) && ((Player)entity).getInventory().getItemInHand().equals(Material.WOOD_SWORD)) {
+			event.setCancelled(true);
 		}
 	}
 }
