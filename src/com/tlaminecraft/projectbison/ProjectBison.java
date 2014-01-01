@@ -1,30 +1,29 @@
 package com.tlaminecraft.projectbison;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
-//import org.bukkit.block.Block;
-//import org.bukkit.entity.Player;
-//import org.bukkit.event.EventHandler;
-//import org.bukkit.event.EventPriority;
-//import org.bukkit.event.Listener;
-//import org.bukkit.event.block.Action;
-//import org.bukkit.event.player.PlayerInteractEvent;
-//import org.bukkit.inventory.Inventory;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-<<<<<<< HEAD
-public class ProjectBison extends JavaPlugin {
-=======
 public class ProjectBison extends JavaPlugin //implements Listener 
 {
-
-	@SuppressWarnings("deprecation")
->>>>>>> 5d8853b2f7789ca176de55a3cdb13a20de730b7e
+	private Map<Location, Inventory> crates = new HashMap<Location, Inventory>();
+	
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new MobEventListener(), this);
 		getServer().getPluginManager().registerEvents(new GliderListener(), this);
@@ -124,21 +123,14 @@ public class ProjectBison extends JavaPlugin //implements Listener
                 .setIngredient('*', Material.LEATHER)
                 .setIngredient('%', new ItemStack(Material.INK_SACK, 1, (short) 2).getData());
         //EK Helmet
-<<<<<<< HEAD
+
         ShapedRecipe EKHelmet = 
     		new ShapedRecipe(setName(new ItemStack(Material.GOLD_HELMET, 1), ChatColor.DARK_GREEN + "Earth Kingdom Helmet"))
         		.shape("***","*%*"," ! ")
                 .setIngredient('*', Material.LEATHER)
                 .setIngredient('%', new ItemStack(Material.INK_SACK, 1, (short) 2).getData())
                 .setIngredient('!', Material.GOLD_NUGGET);       
-=======
-        ShapedRecipe EKHelmet = new ShapedRecipe(setName(new ItemStack(Material.GOLD_HELMET, 1), ChatColor.DARK_GREEN + "Earth Kingdom Helmet")).shape("***","*%*"," ! ")
-                        .setIngredient('*', Material.LEATHER)
-                        .setIngredient('%', Material.INK_SACK, 15 - DyeColor.GREEN.getData())
-                        .setIngredient('!', Material.GOLD_NUGGET);
 
-       
->>>>>>> 5d8853b2f7789ca176de55a3cdb13a20de730b7e
 //Other
        
        
@@ -164,35 +156,28 @@ public class ProjectBison extends JavaPlugin //implements Listener
 
 	public void onDisable() {
 	
-	//Makes sure the Recepies are continually added every time the Plugin reloads	
+	//Makes sure the Recipes are continually added every time the Plugin reloads	
 	getServer().clearRecipes();
 		
 	}
 	
-	//Crate Code
+	@EventHandler (priority=EventPriority.HIGH)
+	public void onPlayerUse(PlayerInteractEvent event){
+		Player p = event.getPlayer();
+	    Block clicked = event.getClickedBlock();
+	    if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+	    	if (clicked.getType() == Material.TNT) {
+	    		if (crates.get(clicked.getLocation()).equals(null)) {
+	    			crates.put(clicked.getLocation(), Bukkit.createInventory(null, InventoryType.DISPENSER));
+	    		}
+	    		
+	    		else {
+	    			p.openInventory(crates.get(clicked.getLocation()));
+	    		}
+	    	}
+		}
+	}
 	
-	//The problem is, this code creates an inventory, but more along the lines of a personal inventory, and I can't figure out how to attach the inventory to the block and not the person.
-	//So right now it acts more like an Enderchest
-	
-	//public static Inventory myInventory = Bukkit.createInventory(null, 9, ChatColor.DARK_AQUA + "Crate");
-	        //static {
-		//}
-
-        //This is the listener that monitors when a tnt block is right clicked so it can open the inventory but it's
-       // a little glitchy
-
-	       // @EventHandler
-	        //(priority=EventPriority.HIGH)
-	       // public void onPlayerUse(PlayerInteractEvent event){
-	           // Player p = event.getPlayer();
-	            //Block clicked = event.getClickedBlock();
-	 
-	            //if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-			//		if (clicked.getType() == Material.TNT){
-	                  //  p.openInventory(myInventory);
-	          //  }
-				//	}
-
 	public ItemStack setName(ItemStack item, String name) {
         ItemMeta Meta = item.getItemMeta();
         Meta.setDisplayName(name);
