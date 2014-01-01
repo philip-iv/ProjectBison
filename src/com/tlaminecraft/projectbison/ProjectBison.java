@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ProjectBison extends JavaPlugin {
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new MobEventListener(), this);
+		getServer().getPluginManager().registerEvents(new GliderListener(), this);
         //Recipes
           //SWT
         ShapedRecipe SWTArmor =
