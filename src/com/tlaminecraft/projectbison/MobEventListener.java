@@ -87,7 +87,8 @@ public final class MobEventListener implements Listener {
 			}
 		}
 		
-		if (entity.getType().equals(EntityType.BAT)) {
+		//tames lemur for 1 bread
+		else if (entity.getType().equals(EntityType.BAT)) {
 			if (item.isSimilar(new ItemStack(Material.BREAD)) && lemurOwner.get(entity.getEntityId()).equals(null)) {
 				item.setAmount(item.getAmount()-1);
 				lemurOwner.put(entity.getEntityId(), event.getPlayer());

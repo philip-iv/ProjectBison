@@ -1,7 +1,6 @@
 package com.tlaminecraft.projectbison;
 
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -9,7 +8,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ProjectBison extends JavaPlugin {
-	@SuppressWarnings("deprecation")
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new MobEventListener(), this);
         //Recipes
