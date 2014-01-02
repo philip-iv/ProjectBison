@@ -2,9 +2,7 @@ package com.tlaminecraft.projectbison;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,9 +13,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ProjectBison extends JavaPlugin //implements Listener 
@@ -45,6 +40,7 @@ public class ProjectBison extends JavaPlugin //implements Listener
         getServer().addRecipe(Recipes.EKLeggings);
         getServer().addRecipe(Recipes.EKBoots);
         getServer().addRecipe(Recipes.EKHelmet);
+        getServer().addRecipe(Recipes.Glider);
 
 }
 
