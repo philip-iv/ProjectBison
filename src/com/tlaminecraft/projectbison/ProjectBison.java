@@ -1,24 +1,8 @@
 package com.tlaminecraft.projectbison;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ProjectBison extends JavaPlugin //implements Listener 
-{
-	private Map<Location, Inventory> crates = new HashMap<Location, Inventory>();
-	
+public class ProjectBison extends JavaPlugin {
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new MobEventListener(), this);
 		getServer().getPluginManager().registerEvents(new GliderListener(), this);
@@ -54,18 +38,5 @@ public class ProjectBison extends JavaPlugin //implements Listener
 	getServer().clearRecipes();
 		
 	}
-	
-	Inventory test = Bukkit.createInventory(null, 9, "Crate");
-	@EventHandler (priority=EventPriority.HIGH)
-	public void onPlayerUse(PlayerInteractEvent event){
-		Player p = event.getPlayer();
-	    Block clicked = event.getClickedBlock();
-	    if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-	    	if (clicked.getType() == Material.TNT) {
-    			p.openInventory(test);
-	    	}
-		}
-	}
-	
 	
 }
