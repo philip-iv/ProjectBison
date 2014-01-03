@@ -6,6 +6,7 @@ public class ProjectBison extends JavaPlugin {
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new MobEventListener(), this);
 		getServer().getPluginManager().registerEvents(new GliderListener(), this);
+		getServer().getPluginManager().registerEvents(new ContainerListener(), this);
        
         //Adds Recipes
         getServer().addRecipe(Recipes.SWTArmor);

@@ -98,6 +98,7 @@ public final class MobEventListener implements Listener {
 		}
 	}
 
+	@EventHandler
 	public void MobHit(EntityDamageByEntityEvent event) {
 		if (event.getDamager().getType().equals(EntityType.PLAYER) && event.getEntity().getType().equals(EntityType.PIG)) {
 			((Damageable) event.getDamager()).damage(1);
