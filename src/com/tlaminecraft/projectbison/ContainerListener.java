@@ -26,12 +26,17 @@ public class ContainerListener implements Listener {
 			if (p.isSneaking())
 				return;
 			if (!(crates.containsKey(clicked))) {
-				if (clicked.getType().equals(Material.TNT))
+				if (clicked.getType().equals(Material.TNT)) {
 					crates.put(clicked, Bukkit.createInventory(null, 9, "Cabinet"));
-				else if (clicked.getType().equals(Material.SPONGE))
+					p.openInventory(crates.get(clicked));
+				}
+				else if (clicked.getType().equals(Material.SPONGE)) {
 					crates.put(clicked, Bukkit.createInventory(null, 9, "Crate"));
+					p.openInventory(crates.get(clicked));
+				}
 			}
-			p.openInventory(crates.get(clicked));
+			else
+				p.openInventory(crates.get(clicked));
 			event.setCancelled(true);
 		}
 	}
