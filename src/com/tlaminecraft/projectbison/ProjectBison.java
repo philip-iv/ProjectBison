@@ -55,19 +55,14 @@ public class ProjectBison extends JavaPlugin //implements Listener
 		
 	}
 	
+	Inventory test = Bukkit.createInventory(null, 9, "Crate");
 	@EventHandler (priority=EventPriority.HIGH)
 	public void onPlayerUse(PlayerInteractEvent event){
 		Player p = event.getPlayer();
 	    Block clicked = event.getClickedBlock();
 	    if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 	    	if (clicked.getType() == Material.TNT) {
-	    		if (crates.get(clicked.getLocation()).equals(null)) {
-	    			crates.put(clicked.getLocation(), Bukkit.createInventory(null, InventoryType.DISPENSER));
-	    		}
-	    		
-	    		else {
-	    			p.openInventory(crates.get(clicked.getLocation()));
-	    		}
+    			p.openInventory(test);
 	    	}
 		}
 	}

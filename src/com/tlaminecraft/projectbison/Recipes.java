@@ -38,10 +38,9 @@ public class Recipes {
             .setIngredient('%', new ItemStack(Material.INK_SACK, 1, (short) 4).getData());
     //SWT Spear
     static ShapedRecipe SWTSpear =
-    		new ShapedRecipe(setLore(new ItemStack(Material.IRON_HOE, 1), ChatColor.DARK_AQUA + "Southern Water Tribe"))
-        		.shape("aia", "asg", "asa")
-        		.setIngredient('a', Material.AIR)
-        		.setIngredient('i', Material.IRON_INGOT)
+    		new ShapedRecipe(setLore(new ItemStack(Material.STONE_HOE, 1), ChatColor.DARK_AQUA + "Southern Water Tribe"))
+        		.shape(" i ", " sg", " s ")
+        		.setIngredient('i', Material.BONE)
         		.setIngredient('s', Material.STICK)
         		.setIngredient('g', new ItemStack(Material.INK_SACK, 1, (short) 4).getData());
     
@@ -72,8 +71,7 @@ public class Recipes {
    //NWT Spear
     static ShapedRecipe NWTSpear =
     		new ShapedRecipe(setLore(new ItemStack(Material.IRON_HOE, 1), ChatColor.DARK_AQUA + "Northern Water Tribe"))
-        		.shape("aia", "asg", "asa")
-        		.setIngredient('a', Material.AIR)
+    			.shape(" i ", " sg", " s ")
         		.setIngredient('i', Material.IRON_INGOT)
         		.setIngredient('s', Material.STICK)
         		.setIngredient('g', new ItemStack(Material.INK_SACK, 1, (short) 12).getData());
@@ -105,8 +103,7 @@ public class Recipes {
     //FN Spear
     static ShapedRecipe FNSpear =
     		new ShapedRecipe(setLore(new ItemStack(Material.DIAMOND_HOE, 1), ChatColor.DARK_RED + "Fire Nation"))
-        		.shape("aia", "asg", "asa")
-        		.setIngredient('a', Material.AIR)
+    			.shape(" i ", " sg", " s ")
         		.setIngredient('i', Material.IRON_INGOT)
         		.setIngredient('s', Material.STICK)
         		.setIngredient('g', new ItemStack(Material.INK_SACK, 1, (short) 1).getData());
@@ -140,8 +137,7 @@ public class Recipes {
     //EK Spear
     static ShapedRecipe EKSpear =
 		new ShapedRecipe(setLore(new ItemStack(Material.GOLD_HOE, 1), ChatColor.DARK_GREEN + "Earth Kingdom"))
-    		.shape("aia", "asg", "asa")
-    		.setIngredient('a', Material.AIR)
+    		.shape(" i ", " sg", " s ")
     		.setIngredient('i', Material.IRON_INGOT)
     		.setIngredient('s', Material.STICK)
     		.setIngredient('g', new ItemStack(Material.INK_SACK, 1, (short) 2).getData());
