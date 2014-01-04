@@ -18,12 +18,12 @@ public class GliderListener implements Listener {
 	public void GliderAscend(PlayerInteractEvent event) {
 		if (event.getMaterial().equals(Material.WOOD_SWORD)) {
 			Player player = event.getPlayer();
-			Vector velocity = player.getVelocity();
+			Vector velocity = player.getLocation().getDirection();
 			if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-				player.setVelocity(velocity.add(new Vector(0, 3, 0)));
+				player.setVelocity(velocity.add(new Vector(velocity.getX() * 20, 3, velocity.getX() * 20)));
 			}
 			else if (event.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-				player.setVelocity(velocity.add(new Vector(velocity.getX() * 100, 2, velocity.getZ() * 100)));
+				player.setVelocity(velocity.add(new Vector(velocity.getX() * 20, 2, velocity.getZ() * 20)));
 			}
 		}
 	}
