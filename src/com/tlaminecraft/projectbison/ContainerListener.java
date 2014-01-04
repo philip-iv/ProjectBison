@@ -29,15 +29,18 @@ public class ContainerListener implements Listener {
 				if (clicked.getType().equals(Material.TNT)) {
 					crates.put(clicked, Bukkit.createInventory(null, 9, "Cabinet"));
 					p.openInventory(crates.get(clicked));
+					event.setCancelled(true);
 				}
 				else if (clicked.getType().equals(Material.SPONGE)) {
 					crates.put(clicked, Bukkit.createInventory(null, 9, "Crate"));
 					p.openInventory(crates.get(clicked));
+					event.setCancelled(true);
 				}
 			}
-			else
+			else {
 				p.openInventory(crates.get(clicked));
-			event.setCancelled(true);
+				event.setCancelled(true);
+			}
 		}
 	}
 	
