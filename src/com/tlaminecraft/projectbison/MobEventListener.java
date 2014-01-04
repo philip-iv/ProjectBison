@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,7 +24,7 @@ public final class MobEventListener implements Listener {
 	private Map<UUID, Player> lemurOwner = new HashMap<UUID, Player>();
 	
 	@EventHandler
-	public void MobSpawn(CreatureSpawnEvent event) {
+	public void mobSpawn(CreatureSpawnEvent event) {
 		Entity entity = event.getEntity();		
 		if (entity.getType().equals(EntityType.COW)) {
 			//prevents spawning of cows/sky bison naturally
@@ -73,7 +74,7 @@ public final class MobEventListener implements Listener {
 	}
 
 	@EventHandler
-	public void MobInteract(PlayerInteractEntityEvent event) {
+	public void mobInteract(PlayerInteractEntityEvent event) {
 		Entity entity = event.getRightClicked();
 		ItemStack item = event.getPlayer().getItemInHand();
 		
@@ -99,9 +100,17 @@ public final class MobEventListener implements Listener {
 	}
 
 	@EventHandler
-	public void MobHit(EntityDamageByEntityEvent event) {
+	public void mobHit(EntityDamageByEntityEvent event) {
 		if (event.getDamager().getType().equals(EntityType.PLAYER) && event.getEntity().getType().equals(EntityType.PIG)) {
 			((Damageable) event.getDamager()).damage(1);
+		}
+	}
+	
+	@EventHandler
+	public void mobDeath(EntityDeathEvent event) {
+		Entity entity = event.getEntity();
+		if (entity.getType().equals(EntityType.WOLF)) {
+			entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.LEATHER, (int) (Math.random() *10 % 3 + 1)));
 		}
 	}
 }
