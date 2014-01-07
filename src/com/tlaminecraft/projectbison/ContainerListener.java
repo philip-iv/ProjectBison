@@ -1,6 +1,5 @@
 package com.tlaminecraft.projectbison;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -16,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class ContainerListener implements Listener {
-	Map<Block, Inventory> crates = new HashMap<Block, Inventory>();
+	static Map<Block, Inventory> crates;
 	
 	@EventHandler
 	public void onPlayerUse(PlayerInteractEvent event) {

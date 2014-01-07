@@ -23,7 +23,7 @@ public class GliderListener implements Listener {
 				player.setVelocity(velocity.add(new Vector(velocity.getX() * 20, 3, velocity.getX() * 20)));
 			}
 			else if (event.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-				player.setVelocity(velocity.add(new Vector(velocity.getX() * 20, 2, velocity.getZ() * 20)));
+				player.setVelocity(velocity.add(new Vector(velocity.getX() * 10, 2, velocity.getZ() * 10)));
 			}
 		}
 	}
