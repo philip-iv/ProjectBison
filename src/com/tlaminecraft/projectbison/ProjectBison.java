@@ -3,6 +3,7 @@ package com.tlaminecraft.projectbison;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -63,10 +64,16 @@ public class ProjectBison extends JavaPlugin {
 			ContainerListener.crates = SLAPI.stringToMap(crates);
 			this.getLogger().info("crates.txt successfully loaded");
 		} catch (Exception e) {
-			this.getLogger().severe("Couldnt find/load crates.txt");
-			this.getLogger().severe("Creating new file");
+			this.getLogger().warning("Couldn't find/load crates.txt, creating new file");
 			ContainerListener.crates = new HashMap<Location, Inventory>();
 		}
+        try {
+        	MobEventListener.bisonTamed = SLAPI.load(getDataFolder() + File.separator + "bison.txt");
+			this.getLogger().info("bison.txt successfully loaded");
+        } catch (Exception e) {
+        	this.getLogger().warning("Couldn't find/load bison.txt, creating new file");
+        	MobEventListener.bisonTamed = new HashMap<UUID, Boolean>();
+        	}
 }
 
 	public void onDisable() {
@@ -77,18 +84,23 @@ public class ProjectBison extends JavaPlugin {
 	//save inventories
 	try {
 		SLAPI.save(SLAPI.mapToString(ContainerListener.crates), getDataFolder() + File.separator + "crates.txt");
-		this.getLogger().warning(SLAPI.mapToString(ContainerListener.crates));
 	} catch (Exception e) {
 		this.getLogger().severe("Failed to save crates.txt");
+	}
+	try {
+		SLAPI.save(MobEventListener.bisonTamed, getDataFolder() + File.separator + "bison.txt");
+	} catch (Exception e) {
+		this.getLogger().severe("Failed to save bison.txt");
+        	e.printStackTrace();
 	}
 	}
 	
 	@EventHandler
 	public void onSave(WorldSaveEvent event) {
 		try {
-			SLAPI.save(SLAPI.mapToString(ContainerListener.crates), getDataFolder() + File.separator + "crates.bin");
+			SLAPI.save(SLAPI.mapToString(ContainerListener.crates), getDataFolder() + File.separator + "crates.txt");
 		} catch (Exception e) {
-			this.getLogger().severe("Failed to save crates.bin");
+			this.getLogger().severe("Failed to save crates.txt");
 		}
 	}
 	

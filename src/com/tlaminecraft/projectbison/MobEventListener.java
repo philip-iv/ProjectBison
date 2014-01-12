@@ -20,8 +20,8 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public final class MobEventListener implements Listener {
-	private Map<UUID, Boolean> bisonTamed = new HashMap<UUID, Boolean>();
-	private Map<UUID, Player> lemurOwner = new HashMap<UUID, Player>();
+	public static Map<UUID, Boolean> bisonTamed;
+	public static Map<UUID, Player> lemurOwner = new HashMap<UUID, Player>();
 	
 	@EventHandler
 	public void mobSpawn(CreatureSpawnEvent event) {
@@ -31,10 +31,6 @@ public final class MobEventListener implements Listener {
 			if (event.getSpawnReason().equals(SpawnReason.NATURAL) || event.getSpawnReason().equals(SpawnReason.CHUNK_GEN)) {
 				 ((Damageable) entity).damage(((Damageable) entity).getHealth());
 			 }
-			//makes them default to not tamed
-			else {
-				bisonTamed.put(entity.getUniqueId(), false);
-			}
 		}
 		
 		//sets custom mount behaviors
@@ -80,7 +76,7 @@ public final class MobEventListener implements Listener {
 		
 		if (entity.getType().equals(EntityType.COW)) {
 			//mount the bison if it's tamed
-			if (bisonTamed.get(entity.getUniqueId())) {
+			if (bisonTamed.containsKey(entity.getUniqueId()) && bisonTamed.get(entity.getUniqueId())) {
 				entity.setPassenger(event.getPlayer());
 				//doesn't really work, trying to make cow move in player look direction
 				entity.setVelocity(event.getPlayer().getLocation().getDirection());
