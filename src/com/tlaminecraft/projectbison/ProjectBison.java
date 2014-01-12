@@ -1,17 +1,21 @@
 package com.tlaminecraft.projectbison;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ProjectBison extends JavaPlugin {
+	
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new MobEventListener(), this);
 		getServer().getPluginManager().registerEvents(new GliderListener(), this);
@@ -21,17 +25,9 @@ public class ProjectBison extends JavaPlugin {
 		 
 		 while(recipes.hasNext()) {
 			 Recipe recipe = recipes.next();
-			 if(recipe.getResult().equals(new ItemStack(Material.LEATHER_HELMET)) || recipe.getResult().equals(new ItemStack(Material.LEATHER_CHESTPLATE))
-					 || recipe.getResult().equals(new ItemStack(Material.LEATHER_LEGGINGS)) || recipe.getResult().equals(new ItemStack(Material.LEATHER_BOOTS))
-					 || recipe.getResult().equals(new ItemStack(Material.IRON_HELMET)) || recipe.getResult().equals(new ItemStack(Material.IRON_CHESTPLATE))
-					 || recipe.getResult().equals(new ItemStack(Material.IRON_LEGGINGS)) || recipe.getResult().equals(new ItemStack(Material.IRON_BOOTS))
-					 || recipe.getResult().equals(new ItemStack(Material.GOLD_HELMET)) || recipe.getResult().equals(new ItemStack(Material.GOLD_CHESTPLATE))
-					 || recipe.getResult().equals(new ItemStack(Material.GOLD_LEGGINGS)) || recipe.getResult().equals(new ItemStack(Material.GOLD_BOOTS))
-					 || recipe.getResult().equals(new ItemStack(Material.DIAMOND_HELMET)) || recipe.getResult().equals(new ItemStack(Material.DIAMOND_CHESTPLATE))
-					 || recipe.getResult().equals(new ItemStack(Material.DIAMOND_LEGGINGS)) || recipe.getResult().equals(new ItemStack(Material.DIAMOND_BOOTS))
-					 || recipe.getResult().equals(new ItemStack(Material.IRON_HOE)) || recipe.getResult().equals(new ItemStack(Material.GOLD_HOE))
-					 || recipe.getResult().equals(new ItemStack(Material.STONE_HOE)) || recipe.getResult().equals(new ItemStack(Material.DIAMOND_HOE))
-					 || recipe.getResult().equals(new ItemStack(Material.WOOD_SWORD)))
+			 if(recipe.getResult().getType().name().contains("CHESTPLATE") || recipe.getResult().getType().name().contains("BOOTS")
+					 || recipe.getResult().getType().name().contains("LEGGINGS") || recipe.getResult().getType().name().contains("HELMET")
+					 || recipe.getResult().equals(new ItemStack(Material.WOOD_SWORD)) || recipe.getResult().getType().name().contains("HOE"))
 				 recipes.remove();
 		 }
 		 
@@ -59,13 +55,17 @@ public class ProjectBison extends JavaPlugin {
         getServer().addRecipe(Recipes.Glider);
         
         //load inventories
+        if (!getDataFolder().exists()) {
+          getDataFolder().mkdir();
+        }
         try {
-			ContainerListener.crates = SLAPI.load("crates.bin");
-			this.getLogger().info("crates successfully loaded");
+        	String crates = SLAPI.load(getDataFolder() + File.separator + "crates.txt");
+			ContainerListener.crates = SLAPI.stringToMap(crates);
+			this.getLogger().info("crates.txt successfully loaded");
 		} catch (Exception e) {
-			this.getLogger().severe("Couldnt find/load crates.bin");
+			this.getLogger().severe("Couldnt find/load crates.txt");
 			this.getLogger().severe("Creating new file");
-			ContainerListener.crates = new HashMap<Block, Inventory>();
+			ContainerListener.crates = new HashMap<Location, Inventory>();
 		}
 }
 
@@ -76,10 +76,20 @@ public class ProjectBison extends JavaPlugin {
 	
 	//save inventories
 	try {
-		SLAPI.save(ContainerListener.crates, "crates.bin");
+		SLAPI.save(SLAPI.mapToString(ContainerListener.crates), getDataFolder() + File.separator + "crates.txt");
+		this.getLogger().warning(SLAPI.mapToString(ContainerListener.crates));
 	} catch (Exception e) {
-		this.getLogger().severe("Failed to save crates.bin");
+		this.getLogger().severe("Failed to save crates.txt");
 	}
+	}
+	
+	@EventHandler
+	public void onSave(WorldSaveEvent event) {
+		try {
+			SLAPI.save(SLAPI.mapToString(ContainerListener.crates), getDataFolder() + File.separator + "crates.bin");
+		} catch (Exception e) {
+			this.getLogger().severe("Failed to save crates.bin");
+		}
 	}
 	
 }

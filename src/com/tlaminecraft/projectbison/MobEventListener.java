@@ -82,6 +82,7 @@ public final class MobEventListener implements Listener {
 			//mount the bison if it's tamed
 			if (bisonTamed.get(entity.getUniqueId())) {
 				entity.setPassenger(event.getPlayer());
+				//doesn't really work, trying to make cow move in player look direction
 				entity.setVelocity(event.getPlayer().getLocation().getDirection());
 			}
 			//tames bison at cost of 1 apple
