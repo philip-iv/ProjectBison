@@ -50,7 +50,7 @@ public class ContainerListener implements Listener {
 		Block block = event.getBlock();
 		Player p = event.getPlayer();
 		Inventory crate = crates.get(block.getLocation());
-		if (block.getType().equals(Material.TNT) || block.getType().equals(Material.SPONGE)) {
+		if ((block.getType().equals(Material.TNT) || block.getType().equals(Material.SPONGE)) && crate != null) {
 			for (ItemStack item : crate) {
 				if (item!=null) {
 					p.getWorld().dropItemNaturally(block.getLocation(), item);
