@@ -54,6 +54,8 @@ public class ProjectBison extends JavaPlugin {
         getServer().addRecipe(Recipes.EKHelmet);
         getServer().addRecipe(Recipes.EKSpear);
         getServer().addRecipe(Recipes.Glider);
+        getServer().addRecipe(Recipes.Cabinet);
+        getServer().addRecipe(Recipes.Crate);
         
         //load inventories
         if (!getDataFolder().exists()) {

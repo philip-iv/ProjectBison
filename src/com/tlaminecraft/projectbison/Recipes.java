@@ -148,6 +148,19 @@ public class Recipes {
     		.shape("sss","wsw","wsw")
     		.setIngredient('s', Material.STICK)
     		.setIngredient('w', Material.WOOL);
+    
+    //crate
+    static ShapedRecipe Crate =
+		new ShapedRecipe(new ItemStack(Material.SPONGE, 1))
+    		.shape("sss","s s","sss")
+    		.setIngredient('s', Material.STICK);
+    
+    //cabinet
+    static ShapedRecipe Cabinet = 
+		new ShapedRecipe(new ItemStack(Material.TNT, 1))
+    		.shape("www","wgw","www")
+    		.setIngredient('w', Material.WOOD)
+    		.setIngredient('g', Material.GLASS);
        
     public static ItemStack setLore(ItemStack item, String lore) {
     	ItemMeta Meta = item.getItemMeta();
