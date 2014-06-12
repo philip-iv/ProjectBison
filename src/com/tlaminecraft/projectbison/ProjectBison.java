@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
+import net.milkbowl.vault.chat.Chat;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,14 +15,18 @@ import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ProjectBison extends JavaPlugin {
-	
+	static JavaPlugin instance;
+	static Chat chat;
 	public void onEnable() {
+		instance = this;
 		getServer().getPluginManager().registerEvents(new MobEventListener(), this);
 		getServer().getPluginManager().registerEvents(new GliderListener(), this);
 		getServer().getPluginManager().registerEvents(new ContainerListener(), this);
+		setupChat();
        
 		 Iterator<Recipe> recipes = Bukkit.recipeIterator();
 		 
@@ -75,7 +81,7 @@ public class ProjectBison extends JavaPlugin {
         } catch (Exception e) {
         	this.getLogger().warning("Couldn't find/load bison.txt, creating new file");
         	MobEventListener.bisonTamed = new HashMap<UUID, Boolean>();
-        	}
+    	}
 }
 
 	public void onDisable() {
@@ -105,5 +111,18 @@ public class ProjectBison extends JavaPlugin {
 			this.getLogger().severe("Failed to save crates.txt");
 		}
 	}
+
+	public static JavaPlugin getInstance() {
+		return instance;
+	}
 	
+	private boolean setupChat()
+    {
+        RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
+        if (chatProvider != null) {
+            chat = chatProvider.getProvider();
+        }
+
+        return (chat != null);
+    }
 }

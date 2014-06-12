@@ -171,7 +171,7 @@ public class Recipes {
     	return item;
     }
 
-	public static ItemStack setColor(ItemStack item, Color color) {
+	public static ItemStack setColor(ItemStack item, org.bukkit.Color color) {
 		LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
 		meta.setColor(color);
 		item.setItemMeta(meta);

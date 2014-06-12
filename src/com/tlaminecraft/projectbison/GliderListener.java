@@ -1,8 +1,8 @@
 package com.tlaminecraft.projectbison;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,7 +31,10 @@ public class GliderListener implements Listener {
 	@EventHandler
 	public void FallDamage(EntityDamageEvent event) {
 		Entity entity = event.getEntity();
-		if (event.getCause().equals(DamageCause.FALL) && entity.getType().equals(EntityType.PLAYER) && ((Player)entity).getInventory().getItemInHand().equals(Material.WOOD_SWORD)) {
+		if (Bukkit.getPluginManager().isPluginEnabled("Vault") && ProjectBison.chat.getPlayerPrefix((Player) entity).contains("&e")) {
+			
+		}
+		else if (event.getCause().equals(DamageCause.FALL) && entity instanceof Player && ((Player) entity).getInventory().getItemInHand().getType() == Material.WOOD_SWORD) {
 			event.setCancelled(true);
 		}
 	}

@@ -9,6 +9,7 @@ import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -99,8 +100,8 @@ public final class MobEventListener implements Listener {
 
 	@EventHandler
 	public void mobHit(EntityDamageByEntityEvent event) {
-		if (event.getDamager().getType().equals(EntityType.PLAYER) && event.getEntity().getType().equals(EntityType.PIG)) {
-			((Damageable) event.getDamager()).damage(1);
+		if (event.getDamager().getType().equals(EntityType.PLAYER) && event.getEntity().getType().equals(EntityType.PIG) && ((HumanEntity) event.getDamager()).getItemInHand().equals(Material.AIR)) {
+			((Damageable) event.getDamager()).damage(3);
 		}
 	}
 	
